@@ -58,6 +58,29 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  window.addEventListener('keydown', function(e){
+    //console.log(e);
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"`)
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"`)
+    console.log(key);
+    if(!audio) return;
+    audio.currentTime = 0; //rewind to start
+    audio.play()
+    key.classList.add('playing'); //check the style.css file. it has the ".playing" class that we need
+    //console.log(audio);
+  });
+
+  function removeTransition(e){
+    //console.log("All the transition names listed below")
+    //console.log(e);
+    if(e.propertyName !== 'transform') return; 
+    console.log(`transform propertyName should show up... "${e.propertyName}"`);
+    console.log("removing the playing class... animation should return to normal...")
+    this.classList.remove('playing');
+  }
+
+  const keys = document.querySelectorAll('.key');
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
 
 </script>
 
